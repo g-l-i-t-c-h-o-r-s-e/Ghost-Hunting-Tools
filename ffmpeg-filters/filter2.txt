@@ -1,0 +1,1 @@
+ffmpeg -f dshow -framerate 10 -rtbufsize 100M -i video="USB Video Device" -lavfi "[0:v]scale=640x360,split=outputs=4[1][2][3][4];[1]tblend=all_mode=difference128[1-1];[2]tblend=all_mode=difference128,pseudocolor=c0=1[2];[1-1][2]hstack[v1];[3]null[3];[4]negate[4];[3][4]hstack[v2];[v2][v1]vstack[out]" -map "[out]" -f avi -c:v mjpeg -q:v 0 - | ffplay -
